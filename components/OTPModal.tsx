@@ -8,13 +8,12 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
 import {
 	InputOTP,
 	InputOTPGroup,
-	InputOTPSeparator,
+	// InputOTPSeparator,
 	InputOTPSlot,
 } from '@/components/ui/input-otp';
 import Image from 'next/image';
