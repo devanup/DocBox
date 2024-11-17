@@ -8,13 +8,12 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
 import {
 	InputOTP,
 	InputOTPGroup,
-	InputOTPSeparator,
+	// InputOTPSeparator,
 	InputOTPSlot,
 } from '@/components/ui/input-otp';
 import Image from 'next/image';
@@ -47,7 +46,7 @@ const OTPModal = ({
 				// redirect to the home page
 				router.push('/');
 			}
-		} catch (error) {
+		} catch {
 			console.log('Failed to verify OTP');
 		}
 		setIsLoading(false);
