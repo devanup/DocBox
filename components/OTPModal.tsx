@@ -46,7 +46,7 @@ const OTPModal = ({
 				// redirect to the home page
 				router.push('/');
 			}
-		} catch (error) {
+		} catch {
 			console.log('Failed to verify OTP');
 		}
 		setIsLoading(false);
