@@ -1,12 +1,12 @@
 // user server directive since we have to call on the server side. This will never be run on the client side to not expose the secret key
 'use server';
 
-import { createAdminClient } from '../appwrite';
+import { createAdminClient, createSessionClient } from '../appwrite';
 import { Query, ID } from 'node-appwrite';
 import { appwriteConfig } from '../appwrite/config';
 import { parseStringify } from '../utils';
 import { cookies } from 'next/headers';
-
+import { userAvatar } from '@/constants';
 /* 
     Create account flow:
     - User enters full name, and email
@@ -62,8 +62,7 @@ export const createAccount = async (fullName: string, email: string) => {
 			{
 				fullName,
 				email,
-				avatar:
-					'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fdefault-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-image189495158&psig=AOvVaw03rr1xplU7jN_q1881qHGV&ust=1731697248831000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPCEtJTB3IkDFQAAAAAdAAAAABAE',
+				avatar: userAvatar,
 				accountId,
 			},
 		);
@@ -85,4 +84,18 @@ export const verifySecret = async (accountId: string, password: string) => {
 	} catch (error) {
 		handleError(error, 'Failed to verify OTP');
 	}
+};
+
+export const getCurrentUser = async () => {
+	const { databases, account } = await createSessionClient();
+	const result = await account.get();
+
+	const user = await databases.listDocuments(
+		appwriteConfig.databaseId,
+		appwriteConfig.usersCollectionId,
+		[Query.equal('accountId', result.$id)],
+	);
+
+	if (user.total > 0) return parseStringify(user.documents[0]);
+	return null;
 };
