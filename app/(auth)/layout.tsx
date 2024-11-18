@@ -22,9 +22,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 						/>
 						<span className={`${nabla.className} text-3xl`}>DocBox</span>
 					</div>
-					<div className='space-y-10 text-white'>
+					<div className='space-y-3 text-white'>
 						<h1 className='h1'>Your Complete Cloud Storage Solution</h1>
-						<p className='body-1'>
+						<p className='body-1 text-gray-300'>
 							Your files, your rules, available anywhere, anytime
 							{/* DocBox is a platform that allows you to manage your files in the
 							best way possible. */}
@@ -32,7 +32,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 						<Image
 							src='/images/cloud-storage.png'
 							alt='cloud-storage'
-							className='pointer-events-none'
+							className='!mt-10 pointer-events-none'
 							width={342}
 							height={342}
 						/>
