@@ -87,15 +87,27 @@ export const verifySecret = async (accountId: string, password: string) => {
 };
 
 export const getCurrentUser = async () => {
-	const { databases, account } = await createSessionClient();
-	const result = await account.get();
+	try {
+		const { databases, account } = await createSessionClient();
+		const result = await account.get();
 
-	const user = await databases.listDocuments(
-		appwriteConfig.databaseId,
-		appwriteConfig.usersCollectionId,
-		[Query.equal('accountId', result.$id)],
-	);
+		// If we can't get the account, redirect to sign-in
+		if (!result) return null;
 
-	if (user.total > 0) return parseStringify(user.documents[0]);
-	return null;
+		const user = await databases.listDocuments(
+			appwriteConfig.databaseId,
+			appwriteConfig.usersCollectionId,
+			[Query.equal('accountId', result.$id)],
+		);
+
+		if (user.total > 0) return parseStringify(user.documents[0]);
+
+		// If no user found in database but we have an account,
+		// you might want to create a new user record here
+		return null;
+	} catch (error) {
+		// If there's any error (including authentication errors), return null
+		console.error('Error getting current user:', error);
+		return null;
+	}
 };
