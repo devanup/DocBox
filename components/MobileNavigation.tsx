@@ -26,8 +26,8 @@ interface Props {
 }
 
 const MobileNavigation = ({
-	ownerId,
-	accountId,
+	// ownerId,
+	// accountId,
 	fullName,
 	avatar,
 	email,
