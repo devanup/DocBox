@@ -82,13 +82,7 @@ export const verifySecret = async (accountId: string, password: string) => {
 			path: '/',
 			httpOnly: true,
 			secure: true,
-			sameSite: 'lax', // 'strict' can sometimes cause issues in production
-			...(process.env.NODE_ENV === 'production'
-				? {
-						domain: 'doc-box-eight.vercel.app',
-						// domain: process.env.NEXT_PUBLIC_DOMAIN, // e.g., '.yourdomain.com'
-					}
-				: {}),
+			sameSite: 'strict', // 'strict' can sometimes cause issues in production
 		});
 		return parseStringify({ sessionId: session.$id });
 	} catch (error) {
