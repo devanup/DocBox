@@ -74,14 +74,25 @@ export const verifySecret = async (accountId: string, password: string) => {
 	try {
 		const { account } = await createAdminClient();
 		const session = await account.createSession(accountId, password);
+
+		// Add logging to debug
+		console.log('Session created:', session.$id);
+
 		(await cookies()).set('appwrite-session', session.secret, {
 			path: '/',
 			httpOnly: true,
-			sameSite: 'strict',
 			secure: true,
+			sameSite: 'lax', // 'strict' can sometimes cause issues in production
+			...(process.env.NODE_ENV === 'production'
+				? {
+						domain: 'doc-box-eight.vercel.app',
+						// domain: process.env.NEXT_PUBLIC_DOMAIN, // e.g., '.yourdomain.com'
+					}
+				: {}),
 		});
 		return parseStringify({ sessionId: session.$id });
 	} catch (error) {
+		console.error('Session creation error:', error);
 		handleError(error, 'Failed to verify OTP');
 	}
 };

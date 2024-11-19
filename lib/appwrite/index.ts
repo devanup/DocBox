@@ -19,6 +19,7 @@ export const createSessionClient = async () => {
 	}
 
 	client.setSession(session.value);
+	console.log('Session set:', session.value);
 
 	// return the client instance with the account and databases services
 	return {
