@@ -1,10 +1,130 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+// takes the inputs and merges them with tailwind-merge
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
+// takes the data and returns a deep copy of the data
 export const parseStringify = <T>(data: T): T => {
 	return JSON.parse(JSON.stringify(data));
+};
+
+// takes the url object and converts it to a file object by calling URL.createObjectURL
+export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
+
+// takes the file name and returns the file type, and extension
+export const getFileType = (fileName: string) => {
+	const extension = fileName.split('.').pop()?.toLowerCase();
+
+	if (!extension) return { type: 'other', extension: '' };
+
+	const documentExtensions = [
+		'pdf',
+		'doc',
+		'docx',
+		'txt',
+		'xls',
+		'xlsx',
+		'csv',
+		'rtf',
+		'ods',
+		'ppt',
+		'odp',
+		'md',
+		'html',
+		'htm',
+		'epub',
+		'pages',
+		'fig',
+		'psd',
+		'ai',
+		'indd',
+		'xd',
+		'sketch',
+		'afdesign',
+		'afphoto',
+		'afphoto',
+	];
+	const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
+	const videoExtensions = ['mp4', 'avi', 'mov', 'mkv', 'webm'];
+	const audioExtensions = ['mp3', 'wav', 'ogg', 'flac'];
+
+	if (documentExtensions.includes(extension))
+		return { type: 'document', extension };
+	if (imageExtensions.includes(extension)) return { type: 'image', extension };
+	if (videoExtensions.includes(extension)) return { type: 'video', extension };
+	if (audioExtensions.includes(extension)) return { type: 'audio', extension };
+
+	return { type: 'other', extension };
+};
+
+// takes the extension and type and returns the file icon
+export const getFileIcon = (
+	extension: string | undefined,
+	type: FileType | string,
+) => {
+	switch (extension) {
+		// Document
+		case 'pdf':
+			return '/assets/icons/file-pdf.svg';
+		case 'doc':
+			return '/assets/icons/file-doc.svg';
+		case 'docx':
+			return '/assets/icons/file-docx.svg';
+		case 'csv':
+			return '/assets/icons/file-csv.svg';
+		case 'txt':
+			return '/assets/icons/file-txt.svg';
+		case 'xls':
+		case 'xlsx':
+			return '/assets/icons/file-document.svg';
+		// Image
+		case 'svg':
+			return '/assets/icons/file-image.svg';
+		// Video
+		case 'mkv':
+		case 'mov':
+		case 'avi':
+		case 'wmv':
+		case 'mp4':
+		case 'flv':
+		case 'webm':
+		case 'm4v':
+		case '3gp':
+			return '/assets/icons/file-video.svg';
+		// Audio
+		case 'mp3':
+		case 'mpeg':
+		case 'wav':
+		case 'aac':
+		case 'flac':
+		case 'ogg':
+		case 'wma':
+		case 'm4a':
+		case 'aiff':
+		case 'alac':
+			return '/assets/icons/file-audio.svg';
+
+		default:
+			switch (type) {
+				case 'image':
+					return '/assets/icons/file-image.svg';
+				case 'document':
+					return '/assets/icons/file-document.svg';
+				case 'video':
+					return '/assets/icons/file-video.svg';
+				case 'audio':
+					return '/assets/icons/file-audio.svg';
+				default:
+					return '/assets/icons/file-other.svg';
+			}
+	}
+};
+
+// APPWRITE URL UTILS
+// Construct appwrite file URL - https://appwrite.io/docs/apis/rest#images
+export const constructFileUrl = (bucketFileId: string) => {
+	return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_BUCKET}/files/${bucketFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
 };
