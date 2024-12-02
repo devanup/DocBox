@@ -3,17 +3,12 @@ import Sort from '@/components/Sort';
 import { getFiles } from '@/lib/file.actions';
 import { Models } from 'node-appwrite';
 import React from 'react';
-
-interface SearchParamProps {
-	params: {
-		type: string;
-	};
-}
+// import { getFileTypesParams } from '@/lib/utils';
 
 const Page = async ({ params }: SearchParamProps) => {
-	// const type = ((await params)?.type as string) || '';
-	const type = params.type || '';
+	const type = ((await params)?.type as string) || '';
 	const files = await getFiles();
+	// const types = getFileTypesParams(type) as FileType[];
 
 	return (
 		<div className='page-container'>
