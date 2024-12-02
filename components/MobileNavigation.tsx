@@ -26,8 +26,8 @@ interface Props {
 }
 
 const MobileNavigation = ({
-	// ownerId,
-	// accountId,
+	ownerId,
+	accountId,
 	fullName,
 	avatar,
 	email,
@@ -43,7 +43,7 @@ const MobileNavigation = ({
 					alt='logo'
 					width={50}
 					height={52}
-					className='h-auto object-contain'
+					className='h-auto object-contain pointer-events-none'
 				/>
 				<span className='text-xl font-bold'>DocBox</span>
 			</Link>
@@ -60,7 +60,7 @@ const MobileNavigation = ({
 								alt='avatar'
 								width={44}
 								height={44}
-								className='header-user-avatar'
+								className='header-user-avatar pointer-events-none'
 							/>
 							<div className='sm:hidden lg:block'>
 								<p className='subtitle-2 capitalize'>{fullName}</p>
@@ -87,6 +87,7 @@ const MobileNavigation = ({
 											className={cn(
 												'nav-icon',
 												pathname === url && 'nav-icon-active',
+												'pointer-events-none',
 											)}
 										/>
 										<p>{label}</p>
@@ -98,7 +99,7 @@ const MobileNavigation = ({
 					<Separator className='my-5 bg-light-200/40' />
 
 					<div className='flex flex-col justify-between gap-5 pb-5'>
-						<FileUploader />
+						<FileUploader ownerId={ownerId} accountId={accountId} />
 						<Button
 							type='submit'
 							className='mobile-sign-out-button'
@@ -111,6 +112,7 @@ const MobileNavigation = ({
 								alt='logout'
 								width={24}
 								height={24}
+								className='pointer-events-none'
 							/>
 							<p>Sign Out</p>
 						</Button>

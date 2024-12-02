@@ -54,6 +54,7 @@ const Sidebar = ({ fullName, email, avatar }: Props) => {
 									className={cn(
 										'nav-icon',
 										pathname === url && 'nav-icon-active',
+										'pointer-events-none',
 									)}
 								/>
 								<p className='hidden lg:block'>{label}</p>
@@ -63,13 +64,13 @@ const Sidebar = ({ fullName, email, avatar }: Props) => {
 				</ul>
 			</nav>
 
-			<Image
+			{/* <Image
 				src='/images/files-2.png'
 				alt='illustration'
 				width={506}
 				height={418}
 				className='w-full'
-			/>
+			/> */}
 			<div className='sidebar-user-info'>
 				<Image
 					src={avatar}
