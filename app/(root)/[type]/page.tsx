@@ -12,7 +12,7 @@ interface SearchParamProps {
 
 const Page = async ({ params }: SearchParamProps) => {
 	const type = ((await params)?.type as string) || '';
-	const files = await getFiles(type);
+	const files = await getFiles();
 
 	return (
 		<div className='page-container'>
