@@ -3,7 +3,6 @@
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
@@ -24,7 +23,6 @@ import { Models } from 'node-appwrite';
 import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Loader2 } from 'lucide-react';
 import { renameFile } from '@/lib/file.actions';
 import { usePathname } from 'next/navigation';
 
