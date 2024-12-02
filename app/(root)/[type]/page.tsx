@@ -11,7 +11,8 @@ interface SearchParamProps {
 }
 
 const Page = async ({ params }: SearchParamProps) => {
-	const type = ((await params)?.type as string) || '';
+	// const type = ((await params)?.type as string) || '';
+	const type = params.type || '';
 	const files = await getFiles();
 
 	return (
