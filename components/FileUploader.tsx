@@ -78,7 +78,13 @@ const FileUploader = ({ ownerId, accountId, className }: FileUploaderProps) => {
 		<div {...getRootProps()} className='cursor-pointer'>
 			<input {...getInputProps()} />
 			<Button type='button' className={cn('uploader-button')}>
-				<Image src='/icons/upload.svg' alt='upload' width={24} height={24} />
+				<Image
+					src='/icons/upload.svg'
+					alt='upload'
+					width={24}
+					height={24}
+					className='pointer-events-none'
+				/>
 				<p>Upload</p>
 			</Button>
 			{files.length > 0 && (

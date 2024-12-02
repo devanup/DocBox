@@ -14,6 +14,22 @@ export const parseStringify = <T>(data: T): T => {
 // takes the url object and converts it to a file object by calling URL.createObjectURL
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
+// takes the file size in bytes and returns the file size in MB, KB, or Bytes
+export const convertFileSize = (sizeInBytes: number, digits?: number) => {
+	if (sizeInBytes < 1024) {
+		return sizeInBytes + ' Bytes'; // Less than 1 KB, show in Bytes
+	} else if (sizeInBytes < 1024 * 1024) {
+		const sizeInKB = sizeInBytes / 1024;
+		return sizeInKB.toFixed(digits || 1) + ' KB'; // Less than 1 MB, show in KB
+	} else if (sizeInBytes < 1024 * 1024 * 1024) {
+		const sizeInMB = sizeInBytes / (1024 * 1024);
+		return sizeInMB.toFixed(digits || 1) + ' MB'; // Less than 1 GB, show in MB
+	} else {
+		const sizeInGB = sizeInBytes / (1024 * 1024 * 1024);
+		return sizeInGB.toFixed(digits || 1) + ' GB'; // 1 GB or more, show in GB
+	}
+};
+
 // takes the file name and returns the file type, and extension
 export const getFileType = (fileName: string) => {
 	const extension = fileName.split('.').pop()?.toLowerCase();
@@ -127,4 +143,45 @@ export const getFileIcon = (
 // Construct appwrite file URL - https://appwrite.io/docs/apis/rest#images
 export const constructFileUrl = (bucketFileId: string) => {
 	return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_BUCKET}/files/${bucketFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
+};
+
+// takes the ISO string and returns the formatted date and time
+export const formatDateTime = (isoString: string | null | undefined) => {
+	if (!isoString) return '—';
+
+	const date = new Date(isoString);
+
+	// Get hours and adjust for 12-hour format
+	let hours = date.getHours();
+	const minutes = date.getMinutes();
+	const period = hours >= 12 ? 'pm' : 'am';
+
+	// Convert hours to 12-hour format
+	hours = hours % 12 || 12;
+
+	// Format the time and date parts
+	const time = `${hours}:${minutes.toString().padStart(2, '0')}${period}`;
+	const day = date.getDate();
+	const monthNames = [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec',
+	];
+	const month = monthNames[date.getMonth()];
+
+	return `${time}, ${day} ${month}`;
+};
+
+// Construct appwrite download URL - https://cloud.appwrite.io/v1/storage/...
+export const constructDownloadUrl = (bucketFileId: string) => {
+	return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_BUCKET}/files/${bucketFileId}/download?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
 };

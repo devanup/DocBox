@@ -54,6 +54,7 @@ const Sidebar = ({ fullName, email, avatar }: Props) => {
 									className={cn(
 										'nav-icon',
 										pathname === url && 'nav-icon-active',
+										'pointer-events-none',
 									)}
 								/>
 								<p className='hidden lg:block'>{label}</p>
