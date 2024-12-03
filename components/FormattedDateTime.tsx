@@ -1,6 +1,6 @@
 import { formatDateTime, cn } from '@/lib/utils';
 
-const FormattedDateTime = ({
+export const FormattedDateTime = ({
 	date,
 	className,
 }: {
@@ -14,4 +14,4 @@ const FormattedDateTime = ({
 	);
 };
 
-export default FormattedDateTime;
+// export default FormattedDateTime;
