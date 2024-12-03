@@ -9,7 +9,7 @@ import { getFileType } from '@/lib/utils';
 import Thumbnail from './Thumbnail';
 import { MAX_FILE_SIZE } from '@/constants';
 import { useToast } from '@/hooks/use-toast';
-import { uploadFile } from '@/lib/file.actions';
+import { uploadFile } from '@/lib/actions/file.actions';
 import { usePathname } from 'next/navigation';
 
 interface FileUploaderProps {

@@ -12,6 +12,13 @@ declare interface UploadFileProps {
 	path: string;
 }
 
+declare interface GetFilesProps {
+	types: FileType[];
+	searchText?: string;
+	sort?: string;
+	limit?: number;
+}
+
 declare interface ActionType {
 	label: string;
 	icon: string;
@@ -22,5 +29,17 @@ declare interface RenameFileProps {
 	fileId: string;
 	name: string;
 	extension: string;
+	path: string;
+}
+
+declare interface UpdateFileUsersProps {
+	fileId: string;
+	emails: string[];
+	path: string;
+}
+
+declare interface DeleteFileProps {
+	fileId: string;
+	bucketFileId: string;
 	path: string;
 }

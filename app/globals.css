@@ -228,10 +228,11 @@
 		@apply h5 relative z-20 text-center !important;
 	}
 	.dashboard-recent-files {
-		@apply h-full rounded-[20px] bg-white p-5 xl:p-8 !important;
+		@apply h-fit rounded-[20px] bg-white p-5 xl:p-8 !important;
 	}
 	.recent-file-details {
-		@apply flex w-full flex-col xl:flex-row xl:justify-between !important;
+		/* @apply flex w-full flex-col xl:flex-row xl:justify-between !important; */
+		@apply flex w-full justify-between !important;
 	}
 	.recent-file-name {
 		@apply subtitle-2 line-clamp-1 w-full text-light-100 sm:max-w-[200px] lg:max-w-[250px] !important;
@@ -402,7 +403,7 @@
 
 	/* Search */
 	.search {
-		@apply relative w-full md:max-w-[480px] !important;
+		@apply relative w-full md:max-w-[520px] !important;
 	}
 	.search-input-wrapper {
 		@apply flex h-[52px] flex-1 items-center gap-3 rounded-full px-4 shadow-drop-3 !important;

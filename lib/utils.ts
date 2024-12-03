@@ -84,21 +84,21 @@ export const getFileIcon = (
 	switch (extension) {
 		// Document
 		case 'pdf':
-			return '/assets/icons/file-pdf.svg';
+			return '/icons/file-pdf.svg';
 		case 'doc':
-			return '/assets/icons/file-doc.svg';
+			return '/icons/file-doc.svg';
 		case 'docx':
-			return '/assets/icons/file-docx.svg';
+			return '/icons/file-docx.svg';
 		case 'csv':
-			return '/assets/icons/file-csv.svg';
+			return '/icons/file-csv.svg';
 		case 'txt':
-			return '/assets/icons/file-txt.svg';
+			return '/icons/file-txt.svg';
 		case 'xls':
 		case 'xlsx':
-			return '/assets/icons/file-document.svg';
+			return '/icons/file-document.svg';
 		// Image
 		case 'svg':
-			return '/assets/icons/file-image.svg';
+			return '/icons/file-image.svg';
 		// Video
 		case 'mkv':
 		case 'mov':
@@ -109,7 +109,7 @@ export const getFileIcon = (
 		case 'webm':
 		case 'm4v':
 		case '3gp':
-			return '/assets/icons/file-video.svg';
+			return '/icons/file-video.svg';
 		// Audio
 		case 'mp3':
 		case 'mpeg':
@@ -121,20 +121,20 @@ export const getFileIcon = (
 		case 'm4a':
 		case 'aiff':
 		case 'alac':
-			return '/assets/icons/file-audio.svg';
+			return '/icons/file-audio.svg';
 
 		default:
 			switch (type) {
 				case 'image':
-					return '/assets/icons/file-image.svg';
+					return '/icons/file-image.svg';
 				case 'document':
-					return '/assets/icons/file-document.svg';
+					return '/icons/file-document.svg';
 				case 'video':
-					return '/assets/icons/file-video.svg';
+					return '/icons/file-video.svg';
 				case 'audio':
-					return '/assets/icons/file-audio.svg';
+					return '/icons/file-audio.svg';
 				default:
-					return '/assets/icons/file-other.svg';
+					return '/icons/file-other.svg';
 			}
 	}
 };
@@ -199,4 +199,48 @@ export const getFileTypesParams = (type: string) => {
 		default:
 			return ['document'];
 	}
+};
+
+// DASHBOARD UTILS
+export const getUsageSummary = (totalSpace: any) => {
+	return [
+		{
+			title: 'Documents',
+			size: totalSpace.document.size,
+			latestDate: totalSpace.document.latestDate,
+			icon: '/icons/file-document-light.svg',
+			url: '/documents',
+		},
+		{
+			title: 'Images',
+			size: totalSpace.image.size,
+			latestDate: totalSpace.image.latestDate,
+			icon: '/icons/file-image-light.svg',
+			url: '/images',
+		},
+		{
+			title: 'Media',
+			size: totalSpace.video.size + totalSpace.audio.size,
+			latestDate:
+				totalSpace.video.latestDate > totalSpace.audio.latestDate
+					? totalSpace.video.latestDate
+					: totalSpace.audio.latestDate,
+			icon: '/icons/file-video-light.svg',
+			url: '/media',
+		},
+		{
+			title: 'Others',
+			size: totalSpace.other.size,
+			latestDate: totalSpace.other.latestDate,
+			icon: '/icons/file-other-light.svg',
+			url: '/others',
+		},
+	];
+};
+
+// takes the size in bytes and returns the percentage of the total size
+export const calculatePercentage = (sizeInBytes: number) => {
+	const totalSizeInBytes = 2 * 1024 * 1024 * 1024; // 2GB in bytes
+	const percentage = (sizeInBytes / totalSizeInBytes) * 100;
+	return Number(percentage.toFixed(2));
 };

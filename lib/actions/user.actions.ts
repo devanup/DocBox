@@ -106,11 +106,10 @@ export const getCurrentUser = async () => {
 			[Query.equal('accountId', result.$id)],
 		);
 
-		if (user.total > 0) return parseStringify(user.documents[0]);
+		if (user.total <= 0) return null;
 
-		// If no user found in database but we have an account,
-		// you might want to create a new user record here
-		return null;
+		// If we have a user, return the user
+		return parseStringify(user.documents[0]);
 	} catch (error) {
 		// If there's any error (including authentication errors), return null
 		console.error('Error getting current user:', error);

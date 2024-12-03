@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Models } from 'node-appwrite';
 import Thumbnail from './Thumbnail';
 import { convertFileSize } from '@/lib/utils';
-import FormattedDateTime from './FormattedDateTime';
+import { FormattedDateTime } from './FormattedDateTime';
 import ActionsDropDown from './ActionsDropDown';
 
 const Card = ({ file }: { file: Models.Document }) => {
